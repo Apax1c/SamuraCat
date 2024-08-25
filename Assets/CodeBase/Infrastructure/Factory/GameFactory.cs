@@ -18,22 +18,25 @@ namespace CodeBase.Infrastructure.Factory
             
             Debug.Log("GameFactory initialized successfully");
         }
-        
+
+        public void CreateCatsContainer()
+        {
+            CatsContainer catsContainer = _assetProvider.LoadFromResources<CatsContainer>(AssetPath.CatsContainer);
+            Object.Instantiate(catsContainer);
+            
+            _catsContainer = catsContainer;
+        }
+
         public void CreatePlayer()
         {
             GameObject playerGameObject = _assetProvider.LoadFromResources(AssetPath.Player);
-            Object.Instantiate(playerGameObject, Vector3.zero, Quaternion.identity);
+            Object.Instantiate(playerGameObject);
 
             Player player = playerGameObject.GetComponent<Player>();
             player.Construct(_catsContainer);
         }
 
         public void CreateCat()
-        {
-            
-        }
-
-        public void CreateCatsContainer()
         {
             
         }

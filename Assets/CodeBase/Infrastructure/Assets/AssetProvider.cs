@@ -10,5 +10,8 @@ namespace CodeBase.Infrastructure.Assets
 
             return gameObject;
         }
+
+        public T LoadFromResources<T>(string path) =>
+            LoadFromResources(path).GetComponent<T>();
     }
 }

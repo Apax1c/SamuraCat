@@ -1,8 +1,8 @@
 using CodeBase.Infrastructure.StateMachine;
 using CodeBase.Infrastructure.StateMachine.States;
+using CodeBase.Services.SceneLoader;
 using CodeBase.StaticData;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
@@ -12,11 +12,13 @@ namespace CodeBase.UI.MainScene
     {
         [SerializeField] private Button StartGameButton;
         private IGameStateMachine _stateMachine;
-        
+        private SceneLoader _sceneLoader;
+
         [Inject]
-        private void Construct(IGameStateMachine stateMachine)
+        private void Construct(IGameStateMachine stateMachine, SceneLoader sceneLoader)
         {
             _stateMachine = stateMachine;
+            _sceneLoader = sceneLoader;
         }
         
         private void Awake()
@@ -26,10 +28,7 @@ namespace CodeBase.UI.MainScene
 
         private void StartSinglePlayer()
         {
-            SceneManager.LoadSceneAsync((int)Scenes.Game);
-            
-            _stateMachine.Enter<GameLoopState>();
-            Debug.Log("Done");
+            _sceneLoader.LoadScene(Scenes.Game, _stateMachine.Enter<GameLoopState>);
         }
 
         private void OnDisable()

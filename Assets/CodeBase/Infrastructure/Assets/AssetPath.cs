@@ -3,6 +3,7 @@
     public class AssetPath
     {
         public const string Bootstrapper = "Infrastructure/Bootstrapper";
-        public const string Player = "Player/Player";
+        public const string Player = "Game/Player";
+        public const string CatsContainer = "Game/CatsContainer";
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,21 +6,8 @@ namespace CodeBase.Game
 {
 	public class CatsContainer : MonoBehaviour
 	{
-        public Cat ChosenCat { get; private set; }
-        public bool IsCatChosen => ChosenCat != null;
-
         private List<Cat> _catsList;
         private const float DistanceBetweenCats = 0.74f;
-
-        public event EventHandler OnCatChosen;
-        public event EventHandler OnCatsSet;
-
-        public void SetCat(Cat chosenCat)
-        {
-            ChosenCat = chosenCat;
-
-            OnCatChosen?.Invoke(this, EventArgs.Empty);
-        }
 
         private void SortCats()
         {
@@ -40,14 +26,10 @@ namespace CodeBase.Game
         {
             _catsList.Remove(catToRemove);
             SortCats();
-
-            OnCatChosen?.Invoke(this, EventArgs.Empty);
         }
 
         public void FulfillCatsList(List<Cat> cats)
         {
-            OnCatsSet?.Invoke(this, EventArgs.Empty);
-
             _catsList = cats;
             SortCats();
         }

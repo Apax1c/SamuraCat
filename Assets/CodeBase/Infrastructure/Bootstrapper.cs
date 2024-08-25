@@ -1,13 +1,16 @@
 ﻿using CodeBase.Infrastructure.StateMachine;
+using CodeBase.Services.SceneLoader;
+using CodeBase.StaticData;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace CodeBase.Infrastructure
 {
-    public class Bootstrapper : MonoBehaviour
+    public class Bootstrapper : MonoBehaviour, ICoroutineRunner
     {
         private IGameStateMachine _gameStateMachine;
+        private SceneLoader _sceneLoader;
 
         [Inject]
         public void Construct(IGameStateMachine gameStateMachine) => 
@@ -15,12 +18,10 @@ namespace CodeBase.Infrastructure
 
         private void Start()
         {
-            if (SceneManager.GetActiveScene().name != "Initial")
-            {
-                SceneManager.LoadScene("Initial");
-            }
+            _sceneLoader = new SceneLoader(this);
             
-            _gameStateMachine.Initialize();
+            if (SceneManager.GetActiveScene().name != "Initial") 
+                _sceneLoader.LoadScene(Scenes.MainMenu, () => _gameStateMachine.Initialize());
         }
     }
 }

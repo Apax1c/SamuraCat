@@ -1,5 +1,4 @@
 using SamuraCat.Constants;
-using SamuraCat.Game;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,15 +6,15 @@ namespace CodeBase.Game
 {
     public class Cat : MonoBehaviour, IPointerClickHandler
     {
-        private int _id;
         private CatsContainer _catsContainer;
 
+        private int _id;
         public int Id
         {
-            get { return _id; }
+            get => _id;
             private set
             {
-                if (value > 0 && value <= 120)
+                if (value is > 0 and <= 120)
                 {
                     _id = value;
                 }
@@ -23,7 +22,7 @@ namespace CodeBase.Game
         }
 
         public CatType Type { get; private set; }
-
+        
         public Cat Construct(int id, CatsContainer catsContainer)
         {
             _catsContainer = catsContainer;
@@ -46,15 +45,15 @@ namespace CodeBase.Game
             {
                 Type = CatType.Big;
             }
-            else if (Id - 1 % katanaCatId == 0)     // 9, 19, 29, 39, 49...
+            else if ((Id - 1) % katanaCatId == 0)     // 9, 19, 29, 39, 49...
             {
                 Type = CatType.Katana;
             }
-            else if (Id - 2 % parkourCatId == 0)    // 10, 22, 34, 46, 58, 70, 82, 94, 106, 118
+            else if ((Id - 2) % parkourCatId == 0)    // 10, 22, 34, 46, 58, 70, 82, 94, 106, 118
             {
                 Type = CatType.Parkour;
             }
-            else if (Id - 4 % killerCatId == 0)     // 20, 44, 68, 92, 116
+            else if ((Id - 4) % killerCatId == 0)     // 20, 44, 68, 92, 116
             {
                 Type = CatType.Killer;
             }
@@ -68,8 +67,6 @@ namespace CodeBase.Game
         {
             GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
             Cat cat = clickedObject.GetComponent<Cat>();
-
-            _catsContainer.SetCat(cat);
         }
     }
 }

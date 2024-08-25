@@ -6,18 +6,18 @@ namespace CodeBase.Infrastructure.StateMachine.States
     {
         private readonly IGameFactory _gameFactory;
 
-        public GameLoopState(IGameFactory gameFactory)
-        {
+        public GameLoopState(IGameFactory gameFactory) => 
             _gameFactory = gameFactory;
-        }
-        
+
         public void Enter()
         {
+            _gameFactory.CreateCatsContainer();
             _gameFactory.CreatePlayer();
         }
 
         public void Exit()
         {
+            
         }
     }
 }
