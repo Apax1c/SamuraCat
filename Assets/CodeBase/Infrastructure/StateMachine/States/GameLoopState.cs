@@ -13,6 +13,7 @@ namespace CodeBase.Infrastructure.StateMachine.States
         {
             _gameFactory.CreateCatsContainer();
             _gameFactory.CreatePlayer();
+            _gameFactory.CreateCats();
         }
 
         public void Exit()

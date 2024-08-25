@@ -1,5 +1,4 @@
 using Unity.Netcode;
-using UnityEngine;
 
 namespace CodeBase.Game
 {

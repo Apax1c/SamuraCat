@@ -20,7 +20,7 @@ namespace CodeBase.Infrastructure
         {
             _sceneLoader = new SceneLoader(this);
             
-            if (SceneManager.GetActiveScene().name != "Initial") 
+            if (SceneManager.GetActiveScene().buildIndex != (int)Scenes.Initial) 
                 _sceneLoader.LoadScene(Scenes.MainMenu, () => _gameStateMachine.Initialize());
         }
     }

@@ -7,14 +7,25 @@ namespace CodeBase.Infrastructure.StateMachine
     {
         public override void InstallBindings()
         {
+            RegisterStateFactory();
+            RegisterStates();
+            RegisterStateMachine();
+        }
+
+        private void RegisterStateFactory()
+        {
             Container.Bind<StateFactory>().AsSingle().NonLazy();
-            
+        }
+
+        private void RegisterStates()
+        {
             Container.Bind<BootstrapState>().AsSingle().NonLazy();
             Container.Bind<GameLoopState>().AsSingle().NonLazy();
+        }
 
-            Container
-                .BindInterfacesAndSelfTo<GameStateMachine>()
-                .AsSingle();
+        private void RegisterStateMachine()
+        {
+            Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle();
         }
     }
 }

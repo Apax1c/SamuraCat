@@ -6,8 +6,6 @@ namespace CodeBase.Game
 {
     public class Cat : MonoBehaviour, IPointerClickHandler
     {
-        private CatsContainer _catsContainer;
-
         private int _id;
         public int Id
         {
@@ -23,15 +21,10 @@ namespace CodeBase.Game
 
         public CatType Type { get; private set; }
         
-        public Cat Construct(int id, CatsContainer catsContainer)
+        public void Construct(int id)
         {
-            _catsContainer = catsContainer;
-            
-            Cat newCat = Instantiate(this);
-            newCat.Id = id;
-            newCat.SetType();
-
-            return newCat;
+            Id = id;
+            SetType();
         }
 
         private void SetType()

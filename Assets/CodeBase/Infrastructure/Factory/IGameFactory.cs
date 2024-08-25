@@ -6,6 +6,6 @@ namespace CodeBase.Infrastructure.Factory
     {
         void CreatePlayer();
         void CreateCatsContainer();
-        void CreateCat();
+        void CreateCats();
     }
 }

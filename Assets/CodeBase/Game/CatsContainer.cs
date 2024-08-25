@@ -16,7 +16,6 @@ namespace CodeBase.Game
             for (int i = 0; i < _catsList.Count; i++)
             {
                 Cat cat = _catsList[i];
-                cat.transform.SetParent(transform);
                 float xPosition = -DistanceBetweenCats * (_catsList.Count - 1) / 2 + DistanceBetweenCats * i;
                 cat.transform.localPosition = new Vector3(xPosition, 0, 0);
             }
@@ -28,7 +27,7 @@ namespace CodeBase.Game
             SortCats();
         }
 
-        public void FulfillCatsList(List<Cat> cats)
+        public void UpdateCatsList(List<Cat> cats)
         {
             _catsList = cats;
             SortCats();
