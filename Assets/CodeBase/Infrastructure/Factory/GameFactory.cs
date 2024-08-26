@@ -9,11 +9,12 @@ namespace CodeBase.Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
-        private const int CountOfCatsOnState = 10;
+        private const int CountOfCatsOnStart = 10;
         
         private CatsContainer _catsContainer;
         private readonly List<CatData> _catsList = new();
         private readonly List<int> _catsIdList = new();
+        private readonly List<GameObject> _platformsList = new();
         
         private IAssetProvider _assetProvider;
 
@@ -21,8 +22,18 @@ namespace CodeBase.Infrastructure.Factory
         public void Construct(IAssetProvider assetProvider) => 
             _assetProvider = assetProvider;
 
-        public void CreateCatsContainer() => 
+        public void CreateCatsContainer()
+        {
             _catsContainer = GetComponentFromInstantiated<CatsContainer>(AssetPath.CatsContainer);
+
+            for (int i = 0; i < 10; i++)
+            {
+                GameObject platform = Object.Instantiate(_assetProvider.LoadFromResources(AssetPath.Platform), _catsContainer.transform);
+                _platformsList.Add(platform);
+            }
+            
+            _catsContainer.Construct(_platformsList);
+        }
 
         public void CreatePlayer()
         {
@@ -32,7 +43,7 @@ namespace CodeBase.Infrastructure.Factory
 
         public void CreateCats()
         {
-            for (int i = 0; i < CountOfCatsOnState; i++)
+            for (int i = 0; i < CountOfCatsOnStart; i++)
             {
                 int randomId = GetRandomCatId();
                 GameObject cat = CreateCat(randomId);
