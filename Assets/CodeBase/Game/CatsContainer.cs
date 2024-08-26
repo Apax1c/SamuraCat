@@ -8,27 +8,33 @@ namespace CodeBase.Game
 	public class CatsContainer : MonoBehaviour
 	{
         private List<CatData> _catsList;
-        private List<GameObject> _platforms;
+        private List<GameObject> _platformsList;
         
         private const float DistanceBetweenCats = 0.74f;
 
         public void Construct(List<GameObject> platforms)
         {
-            _platforms = platforms;
+            _platformsList = platforms;
         }
         
         private void SortCats()
         {
             _catsList = _catsList.OrderBy(b => b.GetId()).ToList();
 
-            for (int i = 0; i < _catsList.Count; i++)
+            for (int i = 0; i < _platformsList.Count; i++)
             {
-                CatData catData = _catsList[i];
-                float xPosition = -DistanceBetweenCats * (_catsList.Count - 1) / 2 + DistanceBetweenCats * i;
-                catData.transform.localPosition = new Vector3(xPosition, 0, 0);
+                Vector3 newPosition = GetPositionForNewCat(i);
 
-                GameObject platform = _platforms[i];
-                platform.transform.localPosition = catData.transform.localPosition;
+                Platform platform = SetPlatformOnNewPosition(i, newPosition);
+
+                if (i >= 0 && i < _catsList.Count)
+                {
+                    CatData catData = SetCatOnNewPosition(i, newPosition);
+
+                    platform.SetNumber(catData.GetId());
+                }
+                else
+                    platform.ClearNumber();
             }
         }
 
@@ -42,6 +48,27 @@ namespace CodeBase.Game
         {
             _catsList = cats;
             SortCats();
+        }
+
+        private static Vector3 GetPositionForNewCat(int i)
+        {
+            float xPosition = -3.33f + DistanceBetweenCats * i;
+            return new Vector3(xPosition, 0, 0);
+        }
+
+        private Platform SetPlatformOnNewPosition(int i, Vector3 newPosition)
+        {
+            GameObject platformGameObject = _platformsList[i];
+            platformGameObject.transform.localPosition = newPosition;
+            
+            return platformGameObject.GetComponent<Platform>();
+        }
+
+        private CatData SetCatOnNewPosition(int i, Vector3 newPosition)
+        {
+            CatData catData = _catsList[i];
+            catData.transform.localPosition = newPosition;
+            return catData;
         }
     }
 }

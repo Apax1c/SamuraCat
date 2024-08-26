@@ -26,7 +26,7 @@ namespace CodeBase.Infrastructure.Factory
         {
             _catsContainer = GetComponentFromInstantiated<CatsContainer>(AssetPath.CatsContainer);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < CountOfCatsOnStart; i++)
             {
                 GameObject platform = Object.Instantiate(_assetProvider.LoadFromResources(AssetPath.Platform), _catsContainer.transform);
                 _platformsList.Add(platform);

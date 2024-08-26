@@ -34,7 +34,7 @@ namespace CodeBase.Game.Cat
                 Type = CatType.Default;
         }
 
-        public object GetId() => 
+        public int GetId() => 
             _id;
     }
 }
