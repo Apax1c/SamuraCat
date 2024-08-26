@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CodeBase.Game;
+using CodeBase.Game.Cat;
 using CodeBase.Infrastructure.Assets;
 using UnityEngine;
 using Zenject;
@@ -11,7 +12,7 @@ namespace CodeBase.Infrastructure.Factory
         private const int CountOfCatsOnState = 10;
         
         private CatsContainer _catsContainer;
-        private readonly List<Cat> _catsList = new List<Cat>();
+        private readonly List<CatConstructor> _catsList = new List<CatConstructor>();
         private readonly List<int> _catsIdList = new List<int>();
         
         private IAssetProvider _assetProvider;
@@ -39,7 +40,11 @@ namespace CodeBase.Infrastructure.Factory
             for (int i = 0; i < CountOfCatsOnState; i++)
             {
                 int randomId = GetRandomCatId();
-                CreateCat(randomId);
+                GameObject cat = CreateCat(randomId);
+                
+                CatModel catModel = cat.GetComponent<CatModel>();
+                catModel.Construct(cat.GetComponent<CatConstructor>(), _assetProvider);
+                catModel.SetModel();
             }
             
             _catsContainer.UpdateCatsList(_catsList);
@@ -57,14 +62,16 @@ namespace CodeBase.Infrastructure.Factory
             return randomId;
         }
 
-        private void CreateCat(int catId)
+        private GameObject CreateCat(int catId)
         {
-            Cat cat = GetComponentFromInstantiated<Cat>(AssetPath.Cat);
-            cat.transform.SetParent(_catsContainer.transform);
+            CatConstructor catConstructor = GetComponentFromInstantiated<CatConstructor>(AssetPath.Cat);
+            catConstructor.transform.SetParent(_catsContainer.transform);
             
-            cat.Construct(catId);
+            catConstructor.Construct(catId);
             
-            _catsList.Add(cat);
+            _catsList.Add(catConstructor);
+
+            return catConstructor.gameObject;
         }
 
         private T GetComponentFromInstantiated<T>(string path) where T : class

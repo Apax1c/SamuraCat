@@ -6,5 +6,6 @@
         public const string Player = "Game/Player";
         public const string CatsContainer = "Game/CatsContainer";
         public const string Cat = "Game/Cat";
+        public const string CatsSO = "Cats/CatsDataSO";
     }
 }

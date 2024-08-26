@@ -1,18 +1,19 @@
 using System.Collections.Generic;
 using CodeBase.Game;
+using CodeBase.Game.Cat;
 
 namespace SamuraCat.Game.Enemy
 {
 	public class NormalEnemyBehaviour : IEnemyBehaviour
     {
-        private List<Cat> _catsList;
-        public List<Cat> CatsList
+        private List<CatConstructor> _catsList;
+        public List<CatConstructor> CatsList
         {
             get { return _catsList; }
             set { _catsList = value; }
         }
 
-        public void UpdateCatsList(List<Cat> newCatsList)
+        public void UpdateCatsList(List<CatConstructor> newCatsList)
         {
             CatsList = newCatsList;
         }

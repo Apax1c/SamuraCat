@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ee21c5453b2144596a613278b4e460, type: 3}
   m_Name: CatsDataSO
   m_EditorClassIdentifier: 
-  cats:
+  Cats:
   - Type: 0
     Model: {fileID: 919132149155446097, guid: 69e5dbac057006a4abdeccec14f7a1d5, type: 3}
   - Type: 8

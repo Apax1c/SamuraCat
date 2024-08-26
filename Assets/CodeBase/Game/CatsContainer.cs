@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using CodeBase.Game.Cat;
 using UnityEngine;
 
 namespace CodeBase.Game
 {
 	public class CatsContainer : MonoBehaviour
 	{
-        private List<Cat> _catsList;
+        private List<CatConstructor> _catsList;
         private const float DistanceBetweenCats = 0.74f;
 
         private void SortCats()
@@ -15,19 +16,19 @@ namespace CodeBase.Game
 
             for (int i = 0; i < _catsList.Count; i++)
             {
-                Cat cat = _catsList[i];
+                CatConstructor catConstructor = _catsList[i];
                 float xPosition = -DistanceBetweenCats * (_catsList.Count - 1) / 2 + DistanceBetweenCats * i;
-                cat.transform.localPosition = new Vector3(xPosition, 0, 0);
+                catConstructor.transform.localPosition = new Vector3(xPosition, 0, 0);
             }
         }
 
-        public void RemoveCat(Cat catToRemove)
+        public void RemoveCat(CatConstructor catConstructorToRemove)
         {
-            _catsList.Remove(catToRemove);
+            _catsList.Remove(catConstructorToRemove);
             SortCats();
         }
 
-        public void UpdateCatsList(List<Cat> cats)
+        public void UpdateCatsList(List<CatConstructor> cats)
         {
             _catsList = cats;
             SortCats();

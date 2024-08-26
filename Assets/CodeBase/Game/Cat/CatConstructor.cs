@@ -2,9 +2,9 @@ using SamuraCat.Constants;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace CodeBase.Game
+namespace CodeBase.Game.Cat
 {
-    public class Cat : MonoBehaviour, IPointerClickHandler
+    public class CatConstructor : MonoBehaviour, IPointerClickHandler
     {
         private int _id;
         public int Id
@@ -59,7 +59,7 @@ namespace CodeBase.Game
         public void OnPointerClick(PointerEventData eventData)
         {
             GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
-            Cat cat = clickedObject.GetComponent<Cat>();
+            CatConstructor catConstructor = clickedObject.GetComponent<CatConstructor>();
         }
     }
 }

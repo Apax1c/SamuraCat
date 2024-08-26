@@ -6,5 +6,6 @@ namespace CodeBase.Infrastructure.Assets
     {
         GameObject LoadFromResources(string path);
         T LoadFromResources<T>(string path);
+        T LoadScriptableObject<T>(string path) where T : ScriptableObject;
     }
 }
