@@ -12,12 +12,12 @@ namespace CodeBase.UI.MainScene
         {
             _startHostButton.onClick.AddListener(() =>
             {
-                Debug.Log("HOST");
+                // TODO - Host connection
             });
 
             _startClientButton.onClick.AddListener(() =>
             {
-                Debug.Log("Client");
+                // TODO - Client connection
             });
         }
     }

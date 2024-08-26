@@ -7,23 +7,23 @@ namespace CodeBase.Game.Cat
 {
     public class CatModel : MonoBehaviour
     {
-        private CatConstructor _catConstructor;
+        private CatData _catData;
         private IAssetProvider _assetProvider;
 
-        public void Construct(CatConstructor catConstructor, IAssetProvider assetProvider)
+        public void Construct(CatData catData, IAssetProvider assetProvider)
         {
-            _catConstructor = catConstructor;
+            _catData = catData;
             _assetProvider = assetProvider;
         }
 
         public void SetModel()
         {
-            CatsSO catsSO = _assetProvider.LoadScriptableObject<CatsSO>(AssetPath.CatsSO);
+            CatsSO catsSo = _assetProvider.LoadScriptableObject<CatsSO>(AssetPath.CatsSO);
 
-            foreach (CatsData catData in catsSO.Cats)
+            foreach (CatsStaticData catsStaticData in catsSo.Cats)
             {
-                if (catData.Type == _catConstructor.Type) 
-                    Instantiate(catData.Model, transform);
+                if (catsStaticData.Type == _catData.Type) 
+                    Instantiate(catsStaticData.Model, transform);
             }
         }
     }

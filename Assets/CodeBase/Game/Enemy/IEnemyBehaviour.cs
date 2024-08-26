@@ -6,9 +6,9 @@ namespace SamuraCat.Game.Enemy
 {
 	public interface IEnemyBehaviour
 	{
-		List<CatConstructor> CatsList { get; set; }
+		List<CatData> CatsList { get; set; }
 
-		void UpdateCatsList(List<CatConstructor> newCatsList);
+		void UpdateCatsList(List<CatData> newCatsList);
 		void ChooseCat();
 	}
 }

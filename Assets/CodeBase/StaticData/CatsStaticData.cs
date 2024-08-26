@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CodeBase.StaticData
 {
     [Serializable]
-    public class CatsData
+    public class CatsStaticData
     {
         public CatType Type;
         public GameObject Model;

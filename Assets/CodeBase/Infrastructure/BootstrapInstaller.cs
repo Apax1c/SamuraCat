@@ -5,12 +5,10 @@ namespace CodeBase.Infrastructure
 {
     public class BootstrapInstaller : MonoInstaller
     {
-        public override void InstallBindings()
-        {
+        public override void InstallBindings() =>
             Container.Bind<Bootstrapper>()
                 .FromComponentInNewPrefabResource(AssetPath.Bootstrapper)
                 .AsSingle()
                 .NonLazy();
-        }
     }
 }

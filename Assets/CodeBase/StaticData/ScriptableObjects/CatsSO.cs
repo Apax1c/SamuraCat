@@ -6,6 +6,6 @@ namespace CodeBase.StaticData.ScriptableObjects
 	[CreateAssetMenu(fileName = "CatsDataSO", menuName = "Scriptable Objects/CatsDataSO")]
 	public class CatsSO : ScriptableObject
 	{
-		public List<CatsData> Cats;
+		public List<CatsStaticData> Cats;
 	}
 }

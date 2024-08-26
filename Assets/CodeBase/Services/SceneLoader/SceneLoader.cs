@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using CodeBase.Infrastructure;
-using CodeBase.Infrastructure.StateMachine;
 using CodeBase.StaticData;
 using UnityEngine;
 using UnityEngine.SceneManagement;

@@ -12,8 +12,8 @@ namespace CodeBase.Infrastructure.Factory
         private const int CountOfCatsOnState = 10;
         
         private CatsContainer _catsContainer;
-        private readonly List<CatConstructor> _catsList = new List<CatConstructor>();
-        private readonly List<int> _catsIdList = new List<int>();
+        private readonly List<CatData> _catsList = new();
+        private readonly List<int> _catsIdList = new();
         
         private IAssetProvider _assetProvider;
 
@@ -21,13 +21,8 @@ namespace CodeBase.Infrastructure.Factory
         public void Construct(IAssetProvider assetProvider) => 
             _assetProvider = assetProvider;
 
-        public void CreateCatsContainer()
-        {
-            GameObject catsContainerGameObject = _assetProvider.LoadFromResources(AssetPath.CatsContainer);
-            CatsContainer catsContainer = Object.Instantiate(catsContainerGameObject).GetComponent<CatsContainer>();
-
-            _catsContainer = catsContainer;
-        }
+        public void CreateCatsContainer() => 
+            _catsContainer = GetComponentFromInstantiated<CatsContainer>(AssetPath.CatsContainer);
 
         public void CreatePlayer()
         {
@@ -43,7 +38,7 @@ namespace CodeBase.Infrastructure.Factory
                 GameObject cat = CreateCat(randomId);
                 
                 CatModel catModel = cat.GetComponent<CatModel>();
-                catModel.Construct(cat.GetComponent<CatConstructor>(), _assetProvider);
+                catModel.Construct(cat.GetComponent<CatData>(), _assetProvider);
                 catModel.SetModel();
             }
             
@@ -64,14 +59,14 @@ namespace CodeBase.Infrastructure.Factory
 
         private GameObject CreateCat(int catId)
         {
-            CatConstructor catConstructor = GetComponentFromInstantiated<CatConstructor>(AssetPath.Cat);
-            catConstructor.transform.SetParent(_catsContainer.transform);
+            CatData catData = GetComponentFromInstantiated<CatData>(AssetPath.Cat);
+            catData.transform.SetParent(_catsContainer.transform);
             
-            catConstructor.Construct(catId);
+            catData.Construct(catId);
             
-            _catsList.Add(catConstructor);
+            _catsList.Add(catData);
 
-            return catConstructor.gameObject;
+            return catData.gameObject;
         }
 
         private T GetComponentFromInstantiated<T>(string path) where T : class

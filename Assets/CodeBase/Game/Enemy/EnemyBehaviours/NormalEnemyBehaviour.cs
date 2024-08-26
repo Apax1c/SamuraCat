@@ -6,14 +6,14 @@ namespace SamuraCat.Game.Enemy
 {
 	public class NormalEnemyBehaviour : IEnemyBehaviour
     {
-        private List<CatConstructor> _catsList;
-        public List<CatConstructor> CatsList
+        private List<CatData> _catsList;
+        public List<CatData> CatsList
         {
             get { return _catsList; }
             set { _catsList = value; }
         }
 
-        public void UpdateCatsList(List<CatConstructor> newCatsList)
+        public void UpdateCatsList(List<CatData> newCatsList)
         {
             CatsList = newCatsList;
         }

@@ -7,28 +7,28 @@ namespace CodeBase.Game
 {
 	public class CatsContainer : MonoBehaviour
 	{
-        private List<CatConstructor> _catsList;
+        private List<CatData> _catsList;
         private const float DistanceBetweenCats = 0.74f;
 
         private void SortCats()
         {
-            _catsList = _catsList.OrderBy(b => b.Id).ToList();
+            _catsList = _catsList.OrderBy(b => b.GetId()).ToList();
 
             for (int i = 0; i < _catsList.Count; i++)
             {
-                CatConstructor catConstructor = _catsList[i];
+                CatData catData = _catsList[i];
                 float xPosition = -DistanceBetweenCats * (_catsList.Count - 1) / 2 + DistanceBetweenCats * i;
-                catConstructor.transform.localPosition = new Vector3(xPosition, 0, 0);
+                catData.transform.localPosition = new Vector3(xPosition, 0, 0);
             }
         }
 
-        public void RemoveCat(CatConstructor catConstructorToRemove)
+        public void RemoveCat(CatData catDataToRemove)
         {
-            _catsList.Remove(catConstructorToRemove);
+            _catsList.Remove(catDataToRemove);
             SortCats();
         }
 
-        public void UpdateCatsList(List<CatConstructor> cats)
+        public void UpdateCatsList(List<CatData> cats)
         {
             _catsList = cats;
             SortCats();
