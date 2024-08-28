@@ -19,12 +19,12 @@ namespace CodeBase.Game
         
         private void SortCats()
         {
-            _catsList = _catsList.OrderBy(b => b.GetId()).ToList();
+            ReorderCatsList();
 
             for (int i = 0; i < _platformsList.Count; i++)
             {
-                Vector3 newPosition = GetPositionForNewCat(i);
-
+                Vector3 newPosition = GetPositionForCatAndPlatform(i);
+                
                 Platform platform = SetPlatformOnNewPosition(i, newPosition);
 
                 if (i >= 0 && i < _catsList.Count)
@@ -34,9 +34,14 @@ namespace CodeBase.Game
                     platform.SetNumber(catData.GetId());
                 }
                 else
+                {
                     platform.ClearNumber();
+                }
             }
         }
+
+        private void ReorderCatsList() => 
+            _catsList = _catsList.OrderBy(b => b.GetId()).ToList();
 
         public void RemoveCat(CatData catDataToRemove)
         {
@@ -50,7 +55,7 @@ namespace CodeBase.Game
             SortCats();
         }
 
-        private static Vector3 GetPositionForNewCat(int i)
+        private static Vector3 GetPositionForCatAndPlatform(int i)
         {
             float xPosition = -3.33f + DistanceBetweenCats * i;
             return new Vector3(xPosition, 0, 0);

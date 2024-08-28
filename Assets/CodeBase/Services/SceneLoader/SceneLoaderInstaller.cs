@@ -8,7 +8,7 @@ namespace CodeBase.Services.SceneLoader
         public override void InstallBindings()
         {
             Bootstrapper bootstrapper = Container.Resolve<Bootstrapper>();
-
+            
             Container.Bind<SceneLoader>().AsSingle().WithArguments(bootstrapper);
         }
     }

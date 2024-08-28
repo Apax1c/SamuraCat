@@ -48,9 +48,8 @@ namespace CodeBase.Infrastructure.Factory
                 int randomId = GetRandomCatId();
                 GameObject cat = CreateCat(randomId);
                 
-                CatModel catModel = cat.GetComponent<CatModel>();
-                catModel.Construct(cat.GetComponent<CatData>(), _assetProvider);
-                catModel.SetModel();
+                SetCatModel(cat);
+                SetCatMover(cat);
             }
             
             _catsContainer.UpdateCatsList(_catsList);
@@ -78,6 +77,20 @@ namespace CodeBase.Infrastructure.Factory
             _catsList.Add(catData);
 
             return catData.gameObject;
+        }
+
+        private void SetCatModel(GameObject cat)
+        {
+            CatModel catModel = cat.GetComponent<CatModel>();
+            catModel.Construct(cat.GetComponent<CatData>(), _assetProvider);
+            catModel.SetModel();
+        }
+
+        private static void SetCatMover(GameObject cat)
+        {
+            CatMover catMover = cat.GetComponent<CatMover>();
+            CatAnimator catAnimator = cat.GetComponentInChildren<CatAnimator>();
+            catMover.Construct(catAnimator);
         }
 
         private T GetComponentFromInstantiated<T>(string path) where T : class

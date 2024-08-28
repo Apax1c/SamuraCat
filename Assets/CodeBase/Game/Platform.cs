@@ -14,7 +14,7 @@ namespace CodeBase.Game
 
         public void ClearNumber()
         {
-            CatNumberText.text = "";
+            CatNumberText.enabled = false;
         }
     }
 }
