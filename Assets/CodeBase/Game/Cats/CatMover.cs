@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace CodeBase.Game.Cat
+namespace CodeBase.Game.Cats
 {
     public class CatMover : MonoBehaviour
     {

@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
-using CodeBase.Game.Cat;
+using CodeBase.Game.Cats;
 using UnityEngine;
 
 namespace CodeBase.Game
 {
 	public class CatsContainer : MonoBehaviour
 	{
-        private List<Cat.Cat> _catsList;
+        private List<Cat> _catsList;
         private List<GameObject> _platformsList;
         
         private const float DistanceBetweenCats = 0.74f;
@@ -29,7 +29,7 @@ namespace CodeBase.Game
 
                 if (i >= 0 && i < _catsList.Count)
                 {
-                    Cat.Cat cat = SetCatOnNewPosition(i, newPosition);
+                    Cat cat = SetCatOnNewPosition(i, newPosition);
 
                     platform.SetNumber(cat.ID);
                 }
@@ -43,13 +43,13 @@ namespace CodeBase.Game
         private void ReorderCatsList() => 
             _catsList = _catsList.OrderBy(b => b.ID).ToList();
 
-        public void RemoveCat(Cat.Cat catToRemove)
+        public void RemoveCat(Cat catToRemove)
         {
             _catsList.Remove(catToRemove);
             SortCats();
         }
 
-        public void UpdateCatsList(List<Cat.Cat> cats)
+        public void UpdateCatsList(List<Cat> cats)
         {
             _catsList = cats;
             SortCats();
@@ -69,9 +69,9 @@ namespace CodeBase.Game
             return platformGameObject.GetComponent<Platform>();
         }
 
-        private Cat.Cat SetCatOnNewPosition(int i, Vector3 newPosition)
+        private Cat SetCatOnNewPosition(int i, Vector3 newPosition)
         {
-            Cat.Cat cat = _catsList[i];
+            Cat cat = _catsList[i];
             cat.transform.localPosition = newPosition;
             return cat;
         }

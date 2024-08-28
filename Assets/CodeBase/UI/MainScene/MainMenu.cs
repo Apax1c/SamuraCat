@@ -1,5 +1,5 @@
-using CodeBase.Infrastructure.StateMachine;
-using CodeBase.Infrastructure.StateMachine.States;
+using CodeBase.Infrastructure.GlobalStateMachine;
+using CodeBase.Infrastructure.GlobalStateMachine.States;
 using CodeBase.Services.SceneLoader;
 using CodeBase.StaticData;
 using UnityEngine;
@@ -11,11 +11,11 @@ namespace CodeBase.UI.MainScene
     public class MainMenu : MonoBehaviour
     {
         [SerializeField] private Button StartGameButton;
-        private IGameStateMachine _stateMachine;
+        private IStateMachine _stateMachine;
         private SceneLoader _sceneLoader;
 
         [Inject]
-        private void Construct(IGameStateMachine stateMachine, SceneLoader sceneLoader)
+        private void Construct(IStateMachine stateMachine, SceneLoader sceneLoader)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;

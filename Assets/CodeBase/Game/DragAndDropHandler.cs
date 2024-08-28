@@ -1,4 +1,4 @@
-using CodeBase.Game.Cat;
+using CodeBase.Game.Cats;
 using UnityEngine;
 
 namespace CodeBase.Game

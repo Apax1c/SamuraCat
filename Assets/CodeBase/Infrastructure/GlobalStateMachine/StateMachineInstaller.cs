@@ -1,7 +1,7 @@
-﻿using CodeBase.Infrastructure.StateMachine.States;
+﻿using CodeBase.Infrastructure.GlobalStateMachine.States;
 using Zenject;
 
-namespace CodeBase.Infrastructure.StateMachine
+namespace CodeBase.Infrastructure.GlobalStateMachine
 {
     public class StateMachineInstaller : MonoInstaller
     {
@@ -25,7 +25,7 @@ namespace CodeBase.Infrastructure.StateMachine
 
         private void RegisterStateMachine()
         {
-            Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle();
+            Container.BindInterfacesAndSelfTo<StateMachine>().AsSingle();
         }
     }
 }

@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace CodeBase.Infrastructure.StateMachine.States
+namespace CodeBase.Infrastructure.GlobalStateMachine.States
 {
     public class BootstrapState : IState
     {

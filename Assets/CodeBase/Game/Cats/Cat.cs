@@ -1,7 +1,7 @@
 ﻿using SamuraCat.Constants;
 using UnityEngine;
 
-namespace CodeBase.Game.Cat
+namespace CodeBase.Game.Cats
 {
     public abstract class Cat : MonoBehaviour
     {

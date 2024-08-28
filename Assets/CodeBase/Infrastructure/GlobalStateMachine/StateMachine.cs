@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using CodeBase.Infrastructure.StateMachine.States;
+using CodeBase.Infrastructure.GlobalStateMachine.States;
 
-namespace CodeBase.Infrastructure.StateMachine
+namespace CodeBase.Infrastructure.GlobalStateMachine
 {
-    public class GameStateMachine : IGameStateMachine
+    public class StateMachine : IStateMachine
     {
         private IState _currentState;
         private Dictionary<Type, IState> _states;
 
         private readonly StateFactory _stateFactory;
         
-        public GameStateMachine(StateFactory stateFactory)
-        {
+        public StateMachine(StateFactory stateFactory) => 
             _stateFactory = stateFactory;
-        }
 
         public void Initialize()
         {

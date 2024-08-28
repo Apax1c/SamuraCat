@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using CodeBase.Game;
-using CodeBase.Game.Cat;
+using CodeBase.Game.Cats;
 using CodeBase.Infrastructure.Assets;
 using SamuraCat.Constants;
 using UnityEngine;

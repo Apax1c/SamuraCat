@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CodeBase.Game.Cat
+namespace CodeBase.Game.Cats
 {
     public class CatAnimator : MonoBehaviour
     {

@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Infrastructure.StateMachine.States
+﻿namespace CodeBase.Infrastructure.GlobalStateMachine.States
 {
     public interface IState
     {

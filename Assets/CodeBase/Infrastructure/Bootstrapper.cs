@@ -1,4 +1,4 @@
-﻿using CodeBase.Infrastructure.StateMachine;
+﻿using CodeBase.Infrastructure.GlobalStateMachine;
 using CodeBase.Services.SceneLoader;
 using CodeBase.StaticData;
 using UnityEngine;
@@ -9,19 +9,21 @@ namespace CodeBase.Infrastructure
 {
     public class Bootstrapper : MonoBehaviour, ICoroutineRunner
     {
-        private IGameStateMachine _gameStateMachine;
+        private IStateMachine _stateMachine;
         private SceneLoader _sceneLoader;
 
         [Inject]
-        public void Construct(IGameStateMachine gameStateMachine) => 
-            _gameStateMachine = gameStateMachine;
+        public void Construct(IStateMachine stateMachine) => 
+            _stateMachine = stateMachine;
 
         private void Start()
         {
             _sceneLoader = new SceneLoader(this);
             
             if (SceneManager.GetActiveScene().buildIndex != (int)Scenes.Initial) 
-                _sceneLoader.LoadScene(Scenes.MainMenu, () => _gameStateMachine.Initialize());
+                _sceneLoader.LoadScene(Scenes.Initial, () => _stateMachine.Initialize());
+            else
+                _stateMachine.Initialize();
         }
     }
 }

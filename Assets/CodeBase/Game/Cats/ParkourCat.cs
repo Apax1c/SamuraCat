@@ -1,6 +1,6 @@
 ﻿using SamuraCat.Constants;
 
-namespace CodeBase.Game.Cat
+namespace CodeBase.Game.Cats
 {
     public class ParkourCat : Cat
     {
