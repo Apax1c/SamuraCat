@@ -7,7 +7,7 @@ namespace CodeBase.Game
 {
 	public class CatsContainer : MonoBehaviour
 	{
-        private List<CatData> _catsList;
+        private List<Cat.Cat> _catsList;
         private List<GameObject> _platformsList;
         
         private const float DistanceBetweenCats = 0.74f;
@@ -29,9 +29,9 @@ namespace CodeBase.Game
 
                 if (i >= 0 && i < _catsList.Count)
                 {
-                    CatData catData = SetCatOnNewPosition(i, newPosition);
+                    Cat.Cat cat = SetCatOnNewPosition(i, newPosition);
 
-                    platform.SetNumber(catData.GetId());
+                    platform.SetNumber(cat.ID);
                 }
                 else
                 {
@@ -41,15 +41,15 @@ namespace CodeBase.Game
         }
 
         private void ReorderCatsList() => 
-            _catsList = _catsList.OrderBy(b => b.GetId()).ToList();
+            _catsList = _catsList.OrderBy(b => b.ID).ToList();
 
-        public void RemoveCat(CatData catDataToRemove)
+        public void RemoveCat(Cat.Cat catToRemove)
         {
-            _catsList.Remove(catDataToRemove);
+            _catsList.Remove(catToRemove);
             SortCats();
         }
 
-        public void UpdateCatsList(List<CatData> cats)
+        public void UpdateCatsList(List<Cat.Cat> cats)
         {
             _catsList = cats;
             SortCats();
@@ -69,11 +69,11 @@ namespace CodeBase.Game
             return platformGameObject.GetComponent<Platform>();
         }
 
-        private CatData SetCatOnNewPosition(int i, Vector3 newPosition)
+        private Cat.Cat SetCatOnNewPosition(int i, Vector3 newPosition)
         {
-            CatData catData = _catsList[i];
-            catData.transform.localPosition = newPosition;
-            return catData;
+            Cat.Cat cat = _catsList[i];
+            cat.transform.localPosition = newPosition;
+            return cat;
         }
     }
 }

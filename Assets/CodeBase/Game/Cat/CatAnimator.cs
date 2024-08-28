@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace CodeBase.Game.Cat
 {
-    [RequireComponent(typeof(Animator))]
     public class CatAnimator : MonoBehaviour
     {
         [SerializeField] private Animator Animator;
