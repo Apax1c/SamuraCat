@@ -4,5 +4,6 @@
     {
         void Enter<TState>() where TState : IGameState;
         void Initialize();
+        public IGameState GetCurrentState();
     }
 }

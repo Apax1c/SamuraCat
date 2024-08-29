@@ -1,4 +1,4 @@
-namespace SamuraCat.Constants
+namespace CodeBase.StaticData
 {
     public enum CatType
     {

@@ -1,4 +1,4 @@
-﻿using SamuraCat.Constants;
+﻿using CodeBase.StaticData;
 
 namespace CodeBase.Game.Cats
 {

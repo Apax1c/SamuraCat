@@ -1,5 +1,8 @@
 using CodeBase.Game.Cats;
+using CodeBase.Game.GameStateMachine;
+using CodeBase.Game.GameStateMachine.GameStates;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Game
 {
@@ -15,17 +18,26 @@ namespace CodeBase.Game
 
         private CatMover _selectedCat;
         private CatPlacement _catPlacement;
+        
+        private IGameStateMachine _gameStateMachine;
+
+        [Inject]
+        private void Construct(IGameStateMachine gameStateMachine) => 
+            _gameStateMachine = gameStateMachine;
 
         private void Awake() => 
             _camera = Camera.main;
 
         private void Update()
         {
-            OnClickDown();
+            if (IsChoosingCatState())
+            {
+                OnClickDown();
 
-            OnSwipe();
+                OnSwipe();
 
-            OnClickUp();
+                OnClickUp();
+            }
         }
 
         private void OnClickDown()
@@ -108,6 +120,9 @@ namespace CodeBase.Game
             _selectedCat = null;
             _isSwiping = false;
         }
+
+        private bool IsChoosingCatState() => 
+            _gameStateMachine.GetCurrentState() is ChoosingCatState;
 
         private Ray GetRay(Vector3 position) => 
             _camera.ScreenPointToRay(position);

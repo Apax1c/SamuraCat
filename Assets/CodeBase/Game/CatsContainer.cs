@@ -16,7 +16,19 @@ namespace CodeBase.Game
         {
             _platformsList = platforms;
         }
-        
+
+        public void RemoveCat(Cat catToRemove)
+        {
+            _catsList.Remove(catToRemove);
+            SortCats();
+        }
+
+        public void UpdateCatsList(List<Cat> cats)
+        {
+            _catsList = cats;
+            SortCats();
+        }
+
         private void SortCats()
         {
             ReorderCatsList();
@@ -42,18 +54,6 @@ namespace CodeBase.Game
 
         private void ReorderCatsList() => 
             _catsList = _catsList.OrderBy(b => b.ID).ToList();
-
-        public void RemoveCat(Cat catToRemove)
-        {
-            _catsList.Remove(catToRemove);
-            SortCats();
-        }
-
-        public void UpdateCatsList(List<Cat> cats)
-        {
-            _catsList = cats;
-            SortCats();
-        }
 
         private static Vector3 GetPositionForCatAndPlatform(int i)
         {

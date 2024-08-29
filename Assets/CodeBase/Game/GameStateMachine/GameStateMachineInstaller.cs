@@ -13,7 +13,8 @@ namespace CodeBase.Game.GameStateMachine
 
         private void RegisterStates()
         {
-            Container.Bind<ChoosingState>().AsSingle().NonLazy();
+            Container.Bind<ChoosingCatState>().AsSingle().NonLazy();
+            Container.Bind<ChoosingPlaceState>().AsSingle().NonLazy();
         }
 
         private void RegisterStateMachine()

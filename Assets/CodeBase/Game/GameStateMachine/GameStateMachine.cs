@@ -10,7 +10,7 @@ namespace CodeBase.Game.GameStateMachine
         private IGameState _currentState;
         private Dictionary<Type, IGameState> _states;
 
-        private StateFactory _stateFactory;
+        private readonly StateFactory _stateFactory;
         
         public GameStateMachine(StateFactory stateFactory) => 
             _stateFactory = stateFactory;
@@ -19,10 +19,11 @@ namespace CodeBase.Game.GameStateMachine
         {
             _states = new Dictionary<Type, IGameState>()
             {
-                [typeof(ChoosingState)] = _stateFactory.CreateGameState<ChoosingState>(),
+                [typeof(ChoosingCatState)] = _stateFactory.CreateGameState<ChoosingCatState>(),
+                [typeof(ChoosingPlaceState)] = _stateFactory.CreateGameState<ChoosingPlaceState>(),
             };
             
-            Enter<ChoosingState>();
+            Enter<ChoosingCatState>();
         }
 
         public void Enter<TState>() where TState : IGameState
@@ -33,5 +34,8 @@ namespace CodeBase.Game.GameStateMachine
             _currentState = state;
             state.Enter();
         }
+
+        public IGameState GetCurrentState() => 
+            _currentState;
     }
 }
