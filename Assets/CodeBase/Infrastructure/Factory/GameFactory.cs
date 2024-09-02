@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CodeBase.Game;
 using CodeBase.Game.Cats;
+using CodeBase.Game.Cats.Types;
 using CodeBase.Game.GameStateMachine;
 using CodeBase.Game.Placement;
 using CodeBase.Infrastructure.Assets;

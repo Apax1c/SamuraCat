@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CodeBase.Game.Placement
 {
-    public class ChosenCatPlacement : MonoBehaviour ,IPlacement
+    public class ChosenCatPlacement : MonoBehaviour, IPlacement
     {
         [SerializeField] private TextMeshPro CatNumberText;
 

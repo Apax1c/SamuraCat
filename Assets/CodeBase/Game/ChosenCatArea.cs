@@ -27,7 +27,7 @@ namespace CodeBase.Game
                 _placementList[i].transform.localPosition = new Vector3(0f, 0f, ZOffset * i);
         }
 
-        public Transform GetPlacementTransform() =>
-            _placementList[^1].transform;
+        public ChosenCatPlacement GetPlacement() =>
+            _placementList[^1];
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CodeBase.Game.GameStateMachine;
 using CodeBase.Game.GameStateMachine.GameStates;
+using CodeBase.Game.Placement;
 using DG.Tweening;
 using UnityEngine;
 
@@ -48,15 +49,15 @@ namespace CodeBase.Game.Cats
             _catAnimator.Drag(false);
         }
 
-        public void OnCatPlaced(Vector3 newPosition)
+        public void OnCatChosen(ChosenCatPlacement placement)
         {
             _gameStateMachine.Enter<ConfirmingState>();
-            _cat.ChooseCat();
+            _cat.ChooseCat(placement);
             
             _collider.enabled = false;
             
-            transform.position = newPosition + Vector3.up * 0.3f;
-            transform.DOScale(0.57f, ScaleDuration);
+            transform.position = placement.transform.position + Vector3.up * 0.3f;
+            transform.DOScale(0.7f, ScaleDuration);
             _catAnimator.Drag(false);
 
             RotateCatToCamera();

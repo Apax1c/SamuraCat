@@ -1,4 +1,5 @@
-﻿using CodeBase.StaticData;
+﻿using CodeBase.Game.Placement;
+using CodeBase.StaticData;
 using UnityEngine;
 
 namespace CodeBase.Game.Cats
@@ -18,10 +19,13 @@ namespace CodeBase.Game.Cats
             _player = player;
         }
 
-        public void ChooseCat()
+        public void ChooseCat(ChosenCatPlacement placement)
         {
             _player.ChooseCat(this);
             _catsContainer.RemoveCat(this);
+            
+            placement.SetNumber(ID);
+            transform.SetParent(placement.transform);
         }
     }
 }

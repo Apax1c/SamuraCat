@@ -1,6 +1,6 @@
 ﻿using CodeBase.StaticData;
 
-namespace CodeBase.Game.Cats
+namespace CodeBase.Game.Cats.Types
 {
     public class KillerCat : Cat
     {

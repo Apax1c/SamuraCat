@@ -77,7 +77,7 @@ namespace CodeBase.Game.DragAndDrop
                 return;
             
             if (_chosenCatArea)
-                _selectedCat.OnCatPlaced(_chosenCatArea.GetPlacementTransform().position);
+                _selectedCat.OnCatChosen(_chosenCatArea.GetPlacement());
             else
                 _selectedCat.OnDragEnd(_startPosition);
             
@@ -97,7 +97,7 @@ namespace CodeBase.Game.DragAndDrop
             if (chosenCatArea != _chosenCatArea)
             {
                 _chosenCatArea = chosenCatArea;
-                _selectedCat.transform.position = _chosenCatArea.GetPlacementTransform().position;
+                _selectedCat.transform.position = _chosenCatArea.GetPlacement().gameObject.transform.position;
             }
         }
 
