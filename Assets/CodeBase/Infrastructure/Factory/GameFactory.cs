@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CodeBase.Game;
 using CodeBase.Game.Cats;
 using CodeBase.Game.GameStateMachine;
+using CodeBase.Game.Placement;
 using CodeBase.Infrastructure.Assets;
 using CodeBase.StaticData;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace CodeBase.Infrastructure.Factory
         private CatsContainer _catsContainer;
         private Player _player;
         private readonly List<Cat> _catsList = new();
+        private readonly List<ChosenCatPlacement> _choosePlacementsList = new();
         
         private readonly List<int> _catsIdList = new();
         private readonly List<GameObject> _platformsList = new();
@@ -62,12 +64,25 @@ namespace CodeBase.Infrastructure.Factory
             _catsContainer.UpdateCatsList(_catsList);
         }
 
+        public List<ChosenCatPlacement> CreateChoosePlacement(int count, Transform parent)
+        {
+            _choosePlacementsList.Clear();
+            for (int i = 0; i < count; i++)
+            {
+                ChosenCatPlacement placement = GetComponentFromInstantiated<ChosenCatPlacement>(AssetPath.ChoosePlacement);
+                placement.transform.SetParent(parent);
+                _choosePlacementsList.Add(placement);
+            }
+
+            return _choosePlacementsList;
+        }
+
         public CatsContainer GetCatsContainer() => 
             _catsContainer;
 
         public Player GetPlayer() => 
             _player;
-        
+
         private int GetRandomCatId()
         {
             int randomId;

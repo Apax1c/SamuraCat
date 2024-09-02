@@ -1,9 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace CodeBase.Game
+namespace CodeBase.Game.Placement
 {
-    public class Platform : MonoBehaviour
+    public class Placement : MonoBehaviour, IPlacement
     {
         [SerializeField] private TextMeshPro CatNumberText;
 

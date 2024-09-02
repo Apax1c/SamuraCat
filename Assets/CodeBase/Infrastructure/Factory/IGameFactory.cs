@@ -1,5 +1,7 @@
-﻿using CodeBase.Game;
-using Zenject;
+﻿using System.Collections.Generic;
+using CodeBase.Game;
+using CodeBase.Game.Placement;
+using UnityEngine;
 
 namespace CodeBase.Infrastructure.Factory
 {
@@ -10,5 +12,6 @@ namespace CodeBase.Infrastructure.Factory
         void CreateCats();
         CatsContainer GetCatsContainer();
         Player GetPlayer();
+        List<ChosenCatPlacement> CreateChoosePlacement(int count, Transform parent);
     }
 }

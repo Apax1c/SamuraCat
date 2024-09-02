@@ -19,11 +19,11 @@ namespace CodeBase.Game.GameStateMachine
         {
             _states = new Dictionary<Type, IGameState>()
             {
-                [typeof(ChoosingCatState)] = _stateFactory.CreateGameState<ChoosingCatState>(),
-                [typeof(ChoosingPlaceState)] = _stateFactory.CreateGameState<ChoosingPlaceState>(),
+                [typeof(ChoosingState)] = _stateFactory.CreateGameState<ChoosingState>(),
+                [typeof(ConfirmingState)] = _stateFactory.CreateGameState<ConfirmingState>(),
             };
             
-            Enter<ChoosingCatState>();
+            Enter<ChoosingState>();
         }
 
         public void Enter<TState>() where TState : IGameState

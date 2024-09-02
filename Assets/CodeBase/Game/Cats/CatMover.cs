@@ -12,6 +12,8 @@ namespace CodeBase.Game.Cats
         private Collider _collider;
         private Cat _cat;
         private CatAnimator _catAnimator;
+
+        private Camera _camera;
         
         private IGameStateMachine _gameStateMachine;
 
@@ -19,6 +21,7 @@ namespace CodeBase.Game.Cats
         {
             _gameStateMachine = gameStateMachine;
             _catAnimator = catAnimator;
+            _camera = Camera.main;
         }
 
         private void Start()
@@ -47,12 +50,12 @@ namespace CodeBase.Game.Cats
 
         public void OnCatPlaced(Vector3 newPosition)
         {
-            _gameStateMachine.Enter<ChoosingPlaceState>();
+            _gameStateMachine.Enter<ConfirmingState>();
             _cat.ChooseCat();
-
+            
             _collider.enabled = false;
             
-            transform.position = newPosition;
+            transform.position = newPosition + Vector3.up * 0.3f;
             transform.DOScale(0.57f, ScaleDuration);
             _catAnimator.Drag(false);
 
@@ -62,8 +65,8 @@ namespace CodeBase.Game.Cats
         private void RotateCatToCamera()
         {
             Vector3 currentPosition = transform.position;
-            Vector3 cameraPosition = Camera.main.transform.position;
-            float rotationToCameraAngle = (Mathf.Acos((currentPosition.z - cameraPosition.z)/(currentPosition.x - cameraPosition.x)) - Mathf.PI)* 57.3f;
+            Vector3 cameraPosition = _camera.transform.position;
+            float rotationToCameraAngle = (Mathf.Atan((currentPosition.z - cameraPosition.z)/(currentPosition.x - cameraPosition.x)) - Mathf.PI)* 57.3f;
             transform.DORotate(new Vector3(0, rotationToCameraAngle, 0), 1f);
         }
     }

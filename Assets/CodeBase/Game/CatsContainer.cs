@@ -37,17 +37,17 @@ namespace CodeBase.Game
             {
                 Vector3 newPosition = GetPositionForCatAndPlatform(i);
                 
-                Platform platform = SetPlatformOnNewPosition(i, newPosition);
+                Placement.Placement placement = SetPlatformOnNewPosition(i, newPosition);
 
                 if (i >= 0 && i < _catsList.Count)
                 {
                     Cat cat = SetCatOnNewPosition(i, newPosition);
 
-                    platform.SetNumber(cat.ID);
+                    placement.SetNumber(cat.ID);
                 }
                 else
                 {
-                    platform.ClearNumber();
+                    placement.ClearNumber();
                 }
             }
         }
@@ -61,12 +61,12 @@ namespace CodeBase.Game
             return new Vector3(xPosition, 0, 0);
         }
 
-        private Platform SetPlatformOnNewPosition(int i, Vector3 newPosition)
+        private Placement.Placement SetPlatformOnNewPosition(int i, Vector3 newPosition)
         {
             GameObject platformGameObject = _platformsList[i];
             platformGameObject.transform.localPosition = newPosition;
             
-            return platformGameObject.GetComponent<Platform>();
+            return platformGameObject.GetComponent<Placement.Placement>();
         }
 
         private Cat SetCatOnNewPosition(int i, Vector3 newPosition)

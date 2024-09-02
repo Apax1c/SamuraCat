@@ -4,9 +4,9 @@ using CodeBase.Game.GameStateMachine.GameStates;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Game
+namespace CodeBase.Game.DragAndDrop
 {
-    public class DragAndDropHandler : MonoBehaviour
+    public class ChooseDragAndDrop : MonoBehaviour
     {
         private const int LeftMouseButton = 0;
 
@@ -17,7 +17,7 @@ namespace CodeBase.Game
         private Vector3 _previousPosition;
 
         private CatMover _selectedCat;
-        private CatPlacement _catPlacement;
+        private ChosenCatArea _chosenCatArea;
         
         private IGameStateMachine _gameStateMachine;
 
@@ -64,7 +64,7 @@ namespace CodeBase.Game
             
             if (Physics.Raycast(touchRay, out RaycastHit hit))
             {
-                if (hit.collider.TryGetComponent(out CatPlacement catPlacement))
+                if (hit.collider.TryGetComponent(out ChosenCatArea catPlacement))
                     SetCursorOnPlacement(catPlacement);
                 else
                     SetCursorOutFromPlacement(touchRay);
@@ -76,8 +76,8 @@ namespace CodeBase.Game
             if (IsCatDraggingFinished())
                 return;
             
-            if (_catPlacement)
-                _selectedCat.OnCatPlaced(_catPlacement.transform.position);
+            if (_chosenCatArea)
+                _selectedCat.OnCatPlaced(_chosenCatArea.GetPlacementTransform().position);
             else
                 _selectedCat.OnDragEnd(_startPosition);
             
@@ -92,21 +92,21 @@ namespace CodeBase.Game
             _startPosition = _selectedCat.transform.position;
         }
 
-        private void SetCursorOnPlacement(CatPlacement catPlacement)
+        private void SetCursorOnPlacement(ChosenCatArea chosenCatArea)
         {
-            if (catPlacement != _catPlacement)
+            if (chosenCatArea != _chosenCatArea)
             {
-                _catPlacement = catPlacement;
-                _selectedCat.transform.position = _catPlacement.transform.position;
+                _chosenCatArea = chosenCatArea;
+                _selectedCat.transform.position = _chosenCatArea.GetPlacementTransform().position;
             }
         }
 
         private void SetCursorOutFromPlacement(Ray touchRay)
         {
-            _catPlacement = null;
+            _chosenCatArea = null;
 
             Plane plane = new Plane(Vector3.up, new Vector3(0f, 1f, 0f));
-            if (plane.Raycast(touchRay, out float hitDistance) && !_catPlacement)
+            if (plane.Raycast(touchRay, out float hitDistance) && !_chosenCatArea)
             {
                 Vector3 point = touchRay.GetPoint(hitDistance);
 
@@ -116,13 +116,13 @@ namespace CodeBase.Game
 
         private void CleanUp()
         {
-            _catPlacement = null;
+            _chosenCatArea = null;
             _selectedCat = null;
             _isSwiping = false;
         }
 
         private bool IsChoosingCatState() => 
-            _gameStateMachine.GetCurrentState() is ChoosingCatState;
+            _gameStateMachine.GetCurrentState() is ChoosingState;
 
         private Ray GetRay(Vector3 position) => 
             _camera.ScreenPointToRay(position);

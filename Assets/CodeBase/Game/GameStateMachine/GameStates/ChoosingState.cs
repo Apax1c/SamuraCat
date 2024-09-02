@@ -2,11 +2,11 @@
 
 namespace CodeBase.Game.GameStateMachine.GameStates
 {
-    public class ChoosingCatState : IGameState
+    public class ChoosingState : IGameState
     {
         private readonly IGameFactory _gameFactory;
         
-        public ChoosingCatState(IGameFactory gameFactory) => 
+        public ChoosingState(IGameFactory gameFactory) => 
             _gameFactory = gameFactory;
 
         public void Enter()

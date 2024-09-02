@@ -1,6 +1,6 @@
 ﻿namespace CodeBase.Game.GameStateMachine.GameStates
 {
-    public class ChoosingPlaceState : IGameState
+    public class ConfirmingState : IGameState
     {
         public void Enter()
         {

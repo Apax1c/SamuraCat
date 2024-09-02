@@ -1,6 +1,6 @@
 ﻿namespace CodeBase.Infrastructure.Assets
 {
-    public class AssetPath
+    public static class AssetPath
     {
         public const string Bootstrapper = "Infrastructure/Bootstrapper";
         
@@ -15,7 +15,6 @@
         public const string KillerCat = "Game/Cats/KillerCat";
         
         public const string Platform = "Game/Platform";
-        
-        public const string CatsSO = "Cats/CatsDataSO";
+        public const string ChoosePlacement = "Game/ChosenPlacement";
     }
 }
