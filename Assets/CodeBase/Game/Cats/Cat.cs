@@ -1,4 +1,4 @@
-﻿using CodeBase.Game.Placement;
+﻿using CodeBase.Game.Placements;
 using CodeBase.StaticData;
 using UnityEngine;
 
@@ -19,7 +19,7 @@ namespace CodeBase.Game.Cats
             _player = player;
         }
 
-        public void ChooseCat(ChosenCatPlacement placement)
+        public void ChooseCat(ChosenPlacement placement)
         {
             _player.ChooseCat(this);
             _catsContainer.RemoveCat(this);

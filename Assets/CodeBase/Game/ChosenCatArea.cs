@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Game.Placement;
+using CodeBase.Game.Placements;
 using CodeBase.Infrastructure.Factory;
 using UnityEngine;
 using Zenject;
@@ -13,7 +13,7 @@ namespace CodeBase.Game
         private const float ZOffset = -0.55f;
 
         private IGameFactory _gameFactory;
-        private List<ChosenCatPlacement> _placementList = new List<ChosenCatPlacement>();
+        private List<ChosenPlacement> _placementList = new List<ChosenPlacement>();
 
         [Inject]
         public void Construct(IGameFactory gameFactory) => 
@@ -27,7 +27,7 @@ namespace CodeBase.Game
                 _placementList[i].transform.localPosition = new Vector3(0f, 0f, ZOffset * i);
         }
 
-        public ChosenCatPlacement GetPlacement() =>
+        public ChosenPlacement GetPlacement() =>
             _placementList[^1];
     }
 }

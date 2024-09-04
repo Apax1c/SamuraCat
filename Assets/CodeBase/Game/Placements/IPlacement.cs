@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Game.Placement
+﻿namespace CodeBase.Game.Placements
 {
     public interface IPlacement
     {

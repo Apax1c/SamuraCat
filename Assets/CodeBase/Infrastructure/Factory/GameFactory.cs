@@ -3,7 +3,7 @@ using CodeBase.Game;
 using CodeBase.Game.Cats;
 using CodeBase.Game.Cats.Types;
 using CodeBase.Game.GameStateMachine;
-using CodeBase.Game.Placement;
+using CodeBase.Game.Placements;
 using CodeBase.Infrastructure.Assets;
 using CodeBase.StaticData;
 using UnityEngine;
@@ -14,14 +14,17 @@ namespace CodeBase.Infrastructure.Factory
     public class GameFactory : IGameFactory
     {
         private const int CountOfCatsOnStart = 10;
-        
+        private const int CountOfConfirmedRows = 4;
+
         private CatsContainer _catsContainer;
-        private Player _player;
-        private readonly List<Cat> _catsList = new();
-        private readonly List<ChosenCatPlacement> _choosePlacementsList = new();
         
+        private Player _player;
+        
+        private readonly List<Cat> _catsList = new();
         private readonly List<int> _catsIdList = new();
-        private readonly List<GameObject> _platformsList = new();
+        
+        private readonly List<ChosenPlacement> _choosePlacementsList = new();
+        private readonly List<ConfirmedRow> _confirmedRowList = new();
 
         private IAssetProvider _assetProvider;
         private IGameStateMachine _gameStateMachine;
@@ -37,13 +40,15 @@ namespace CodeBase.Infrastructure.Factory
         {
             _catsContainer = GetComponentFromInstantiated<CatsContainer>(AssetPath.CatsContainer);
 
+            List<Placement> placements = new();
             for (int i = 0; i < CountOfCatsOnStart; i++)
             {
-                GameObject platform = Object.Instantiate(_assetProvider.LoadFromResources(AssetPath.Platform), _catsContainer.transform);
-                _platformsList.Add(platform);
+                Placement placement = GetComponentFromInstantiated<Placement>(AssetPath.Platform);
+                placement.transform.SetParent(_catsContainer.transform);
+                placements.Add(placement);
             }
             
-            _catsContainer.Construct(_platformsList);
+            _catsContainer.Construct(placements);
         }
 
         public void CreatePlayer()
@@ -56,21 +61,23 @@ namespace CodeBase.Infrastructure.Factory
         {
             for (int i = 0; i < CountOfCatsOnStart; i++)
             {
-                int randomId = GetRandomCatId();
-                GameObject cat = CreateCat(randomId);
+                Cat cat = CreateCat();
+
+                cat.transform.SetParent(_catsContainer.transform);
+                _catsList.Add(cat);
                 
-                SetCatMover(cat);
+                SetCatMover(cat.gameObject);
             }
             
             _catsContainer.UpdateCatsList(_catsList);
         }
 
-        public List<ChosenCatPlacement> CreateChoosePlacement(int count, Transform parent)
+        public List<ChosenPlacement> CreateChoosePlacement(int count, Transform parent)
         {
             _choosePlacementsList.Clear();
             for (int i = 0; i < count; i++)
             {
-                ChosenCatPlacement placement = GetComponentFromInstantiated<ChosenCatPlacement>(AssetPath.ChoosePlacement);
+                ChosenPlacement placement = GetComponentFromInstantiated<ChosenPlacement>(AssetPath.ChoosePlacement);
                 placement.transform.SetParent(parent);
                 _choosePlacementsList.Add(placement);
             }
@@ -78,11 +85,32 @@ namespace CodeBase.Infrastructure.Factory
             return _choosePlacementsList;
         }
 
-        public CatsContainer GetCatsContainer() => 
-            _catsContainer;
+        public void CreateConfirmedRows()
+        {
+            for (int i = 0; i < CountOfConfirmedRows; i++)
+            {
+                ConfirmedRow row = GetComponentFromInstantiated<ConfirmedRow>(AssetPath.ConfirmedRow);
+                Vector3 newPosition = new Vector3(0, 0, -1.15f * i);
+                row.transform.position += newPosition;
+                _confirmedRowList.Add(row);
+            }
+        }
 
-        public Player GetPlayer() => 
-            _player;
+        public void CreateConfirmedCats()
+        {
+            for (int i = 0; i < CountOfConfirmedRows; i++)
+            {
+                Cat cat = CreateCat();
+                cat.GetComponent<CatMover>().enabled = false;
+                _confirmedRowList[i].AddCat(cat);
+            }
+        }
+
+        private Cat CreateCat()
+        {
+            int randomId = GetRandomCatId();
+            return GetCatWithType(randomId);
+        }
 
         private int GetRandomCatId()
         {
@@ -96,18 +124,6 @@ namespace CodeBase.Infrastructure.Factory
             return randomId;
         }
 
-        private GameObject CreateCat(int catId)
-        {
-            Cat cat = SetType(catId);
-
-            cat.transform.SetParent(_catsContainer.transform);
-            cat.Construct(catId, _catsContainer, _player);
-            
-            _catsList.Add(cat);
-
-            return cat.gameObject;
-        }
-
         private void SetCatMover(GameObject cat)
         {
             CatMover catMover = cat.GetComponent<CatMover>();
@@ -115,7 +131,7 @@ namespace CodeBase.Infrastructure.Factory
             catMover.Construct(_gameStateMachine, catAnimator);
         }
 
-        private Cat SetType(int catId)
+        private Cat GetCatWithType(int catId)
         {
             const int bigCatId = (int)CatType.Big;
             const int katanaCatId = (int)CatType.Katana;
@@ -133,6 +149,9 @@ namespace CodeBase.Infrastructure.Factory
                 cat = GetComponentFromInstantiated<KillerCat>(AssetPath.KillerCat);
             else
                 cat = GetComponentFromInstantiated<DefaultCat>(AssetPath.DefaultCat);
+            
+            cat.Construct(catId, _catsContainer, _player);
+            
             return cat;
         }
 

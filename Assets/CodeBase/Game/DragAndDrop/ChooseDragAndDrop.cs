@@ -50,7 +50,8 @@ namespace CodeBase.Game.DragAndDrop
 
             if (Physics.Raycast(GetRay(_previousPosition), out RaycastHit hit))
                 if (hit.collider.TryGetComponent(out CatMover selectedCat))
-                    StartDragging(selectedCat);
+                    if (selectedCat.enabled)
+                        StartDragging(selectedCat);
         }
 
         private void OnSwipe()

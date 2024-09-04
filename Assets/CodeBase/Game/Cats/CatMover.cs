@@ -1,6 +1,6 @@
 ﻿using CodeBase.Game.GameStateMachine;
 using CodeBase.Game.GameStateMachine.GameStates;
-using CodeBase.Game.Placement;
+using CodeBase.Game.Placements;
 using DG.Tweening;
 using UnityEngine;
 
@@ -49,7 +49,7 @@ namespace CodeBase.Game.Cats
             _catAnimator.Drag(false);
         }
 
-        public void OnCatChosen(ChosenCatPlacement placement)
+        public void OnCatChosen(ChosenPlacement placement)
         {
             _gameStateMachine.Enter<ConfirmingState>();
             _cat.ChooseCat(placement);

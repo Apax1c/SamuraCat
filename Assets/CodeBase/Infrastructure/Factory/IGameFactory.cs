@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Game;
-using CodeBase.Game.Placement;
+using CodeBase.Game.Placements;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Factory
@@ -10,8 +10,8 @@ namespace CodeBase.Infrastructure.Factory
         void CreatePlayer();
         void CreateCatsContainer();
         void CreateCats();
-        CatsContainer GetCatsContainer();
-        Player GetPlayer();
-        List<ChosenCatPlacement> CreateChoosePlacement(int count, Transform parent);
+        List<ChosenPlacement> CreateChoosePlacement(int count, Transform parent);
+        void CreateConfirmedCats();
+        void CreateConfirmedRows();
     }
 }

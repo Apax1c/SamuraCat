@@ -6,7 +6,7 @@ namespace CodeBase.Infrastructure.GlobalStateMachine.States
     public class GameLoopState : IState
     {
         private readonly IGameFactory _gameFactory;
-        private IGameStateMachine _gameStateMachine;
+        private readonly IGameStateMachine _gameStateMachine;
 
         public GameLoopState(IGameFactory gameFactory, IGameStateMachine gameStateMachine)
         {
@@ -20,6 +20,9 @@ namespace CodeBase.Infrastructure.GlobalStateMachine.States
             _gameFactory.CreateCatsContainer();
             _gameFactory.CreatePlayer();
             _gameFactory.CreateCats();
+
+            _gameFactory.CreateConfirmedRows();
+            _gameFactory.CreateConfirmedCats();
             
             _gameStateMachine.Initialize();
         }

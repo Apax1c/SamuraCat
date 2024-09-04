@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Game.Cats;
+using CodeBase.Game.Placements;
 using UnityEngine;
 
 namespace CodeBase.Game
@@ -8,13 +9,13 @@ namespace CodeBase.Game
 	public class CatsContainer : MonoBehaviour
 	{
         private List<Cat> _catsList;
-        private List<GameObject> _platformsList;
+        private List<Placement> _placementsList;
         
         private const float DistanceBetweenCats = 0.74f;
 
-        public void Construct(List<GameObject> platforms)
+        public void Construct(List<Placement> platforms)
         {
-            _platformsList = platforms;
+            _placementsList = platforms;
         }
 
         public void RemoveCat(Cat catToRemove)
@@ -33,11 +34,11 @@ namespace CodeBase.Game
         {
             ReorderCatsList();
 
-            for (int i = 0; i < _platformsList.Count; i++)
+            for (int i = 0; i < _placementsList.Count; i++)
             {
                 Vector3 newPosition = GetPositionForCatAndPlatform(i);
                 
-                Placement.Placement placement = SetPlatformOnNewPosition(i, newPosition);
+                Placement placement = SetPlatformOnNewPosition(i, newPosition);
 
                 if (i >= 0 && i < _catsList.Count)
                 {
@@ -61,12 +62,12 @@ namespace CodeBase.Game
             return new Vector3(xPosition, 0, 0);
         }
 
-        private Placement.Placement SetPlatformOnNewPosition(int i, Vector3 newPosition)
+        private Placement SetPlatformOnNewPosition(int i, Vector3 newPosition)
         {
-            GameObject platformGameObject = _platformsList[i];
+            GameObject platformGameObject = _placementsList[i].gameObject;
             platformGameObject.transform.localPosition = newPosition;
             
-            return platformGameObject.GetComponent<Placement.Placement>();
+            return platformGameObject.GetComponent<Placement>();
         }
 
         private Cat SetCatOnNewPosition(int i, Vector3 newPosition)

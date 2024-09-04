@@ -16,5 +16,6 @@
         
         public const string Platform = "Game/Platform";
         public const string ChoosePlacement = "Game/ChosenPlacement";
+        public const string ConfirmedRow = "Game/ConfirmedPlacementRow";
     }
 }
