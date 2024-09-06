@@ -57,18 +57,22 @@ namespace CodeBase.Game.Cats
             _collider.enabled = false;
             
             transform.position = placement.transform.position + Vector3.up * 0.3f;
-            transform.DOScale(0.7f, ScaleDuration);
+            transform.DOScale(1f, ScaleDuration);
             _catAnimator.Drag(false);
 
             RotateCatToCamera();
         }
 
-        private void RotateCatToCamera()
+        public void RotateCatToCamera()
         {
             Vector3 currentPosition = transform.position;
             Vector3 cameraPosition = _camera.transform.position;
-            float rotationToCameraAngle = (Mathf.Atan((currentPosition.z - cameraPosition.z)/(currentPosition.x - cameraPosition.x)) - Mathf.PI)* 57.3f;
-            transform.DORotate(new Vector3(0, rotationToCameraAngle, 0), 1f);
+            
+            Vector3 directionToCamera = cameraPosition - currentPosition;
+            directionToCamera.y = 0;
+            Quaternion targetRotation = Quaternion.LookRotation(directionToCamera);
+
+            transform.DORotate(targetRotation.eulerAngles, 1f);
         }
     }
 }

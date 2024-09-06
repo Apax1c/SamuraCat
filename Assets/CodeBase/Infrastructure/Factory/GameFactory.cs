@@ -101,8 +101,12 @@ namespace CodeBase.Infrastructure.Factory
             for (int i = 0; i < CountOfConfirmedRows; i++)
             {
                 Cat cat = CreateCat();
-                cat.GetComponent<CatMover>().enabled = false;
                 _confirmedRowList[i].AddCat(cat);
+
+                SetCatMover(cat.gameObject);
+                CatMover mover = cat.GetComponent<CatMover>();
+                mover.RotateCatToCamera();
+                mover.enabled = false;
             }
         }
 
